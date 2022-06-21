@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,minimum-scale=1">
+		<title>Login</title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		<link rel="icon" href="/favico.png" type="image/png">
+	</head>
+	<body>
+		<div class="content">
+            <div style="margin-top: 30px;"> <h2>Barbell Club</h2>
+            <h3 class="credits">Date: {{ today }}</h3></div>
+             
+            
+            
+            <div class="dashboard">
+            
+            
+            <div class="block">
+                <div class="table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Lift</td>
+                   
+                                <td>Percentages</td>
+
+                                <td>Your Numbers</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if tasks.length == 0 %}
+                            <tr>
+                                <td colspan="8" style="text-align:center;">There are no downloads</td>
+                            </tr>
+                            {% endif %}
+                            {% 
+                                for task in tasks  
+                                %}
+                            <tr>
+                               
+                                <td>{{ task[0] }}   <input type="text" id="liftnumber" name="liftnumber" onkeypress="getNumbers(event, '{{ task[0] }}', '{{ task[1] }}')">
+                                </td>
+                                <td>{{ task[1] }}</td>
+
+                                <td>  <label for="liftnumber" id="{{ task[0] }}"></label></td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+		<script src="script.js"></script>
+	
+	</body>
+</html>

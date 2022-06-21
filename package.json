@@ -11,7 +11,13 @@
   "dependencies": {
     "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.11",
+    "cookie-parser": "^1.4.6",
     "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "fs-extra": "^10.1.0",
+    "handlebars": "^4.7.7",
+    "nodemon": "^2.0.16",
+    "nunjucks": "^3.2.3",
     "pretty": "^2.0.0",
     "puppeteer": "^14.4.1"
   },
