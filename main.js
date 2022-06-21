@@ -2,15 +2,25 @@
 // because we shall not log html to the terminal
 const axios = require("axios");
 const cheerio = require("cheerio");
+const ff = require("fs");
 const fs = require("fs").promises;
-
+var express = require('express')
+var app = express()
 // ... puppeteer code
-
+var result;
 // URL of the page we want to scrape
 const url = "https://app.wodify.com/WOD/WOD.aspx";
 
 const puppeteer = require('puppeteer');
 
+
+var http = require('http');
+
+http.createServer(function (req, res) {
+  
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.end('Hello World!' + result);
+}).listen(8080);
 
 async function main() {
 
@@ -69,7 +79,7 @@ const data = await page.evaluate(() => {
 });
 
 //You will now have an array of strings
-console.log('data' + data);
+//console.log('data' + data);
 
 let exercise_name = await page.$$eval('.component_name', names => names.map(name => name.textContent));
 //let percentages = await page.$$eval('.component_comment', exercises => exercises.map(exercises => exercises.textContent));
@@ -84,7 +94,7 @@ data.forEach(percentage_weight =>
 
 
 console.table('arrayPercentages' + arrayPercentages);
-
+result = arrayPercentages;
 await fs.writeFile('results.json', JSON.stringify(arrayPercentages, null, 2));
 
 
@@ -134,4 +144,14 @@ async function scrapeData(content) {
     console.error(err);
   }
 }
+
+
+
+
+
+      app.get('/results', function (req, res) {
+        JSON.stringify(result);
+      console.log(JSON.stringify(result));
+      res.send(result);
+      })
 // Invoke the above function
