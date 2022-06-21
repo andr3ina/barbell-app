@@ -10,23 +10,32 @@ const fs = require("fs").promises;
 const url = "https://app.wodify.com/WOD/WOD.aspx";
 
 const puppeteer = require('puppeteer');
-//test commit 234234
 
 
 async function main() {
+
   const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();
   const cookiesString = await fs.readFile('cookies.json');
-const cookies2 = JSON.parse(cookiesString);
-await page.setCookie(...cookies2);
+  const cookies2 = JSON.parse(cookiesString);
+  await page.setCookie(...cookies2);
   await page.setViewport({width: 1200, height: 720});
   await page.goto('https://app.wodify.com/WOD/WOD.aspx', { waitUntil: 'networkidle0' }); // wait until page load
   
-  /*
+  const path = "cookies.json";
+
+  if (ff.existsSync(path)) {
+    // path exists
+    console.log("exists:", path);
+  } else {
+    
+  //LOGIN
+    
+    
   await page.type('#Input_UserName', 'andri_sira@hotmail.com');
   await page.type('#Input_Password', 'osopolar');
   // click and wait for navigation
-  
+
   await Promise.all([
     page.evaluate( () => document.getElementById("Checkbox1").checked = true),
 
@@ -45,28 +54,11 @@ await page.setCookie(...cookies2);
     page.type('#AthleteTheme_wtLayoutNormal_block_wtSubNavigation_W_Utils_UI_wt3_block_wtDateInputFrom','06/20/2022'),
     page.keyboard.press('Enter'),
   ]);
-*/
-/*
- const data = await page.evaluate(() => {
-    let results = [];
 
-    let items = document.getElementsByClassName('component_show_wrapper');
-    console.log(items);
-    /*
-    items.forEach(item => {
-         results.push({
-            name: item.querySelector('component_name').innerHTML,
-            title: item.querySelector('component_comment').innerHTML,
-        });
-        
-    });
-    
-  
-return results;
-    
-});
 
-*/
+  console.log("DOES NOT exist:", path);
+  }
+
 const data = await page.evaluate(() => {
     const tds = Array.from(document.querySelectorAll('.component_comment'))
     return tds.map(td => {
@@ -77,16 +69,23 @@ const data = await page.evaluate(() => {
 });
 
 //You will now have an array of strings
-console.log('data' + data[0]);
+console.log('data' + data);
 
-//scrapeData(data);
-    let exercise_name = await page.$$eval('.component_name', names => names.map(name => name.textContent));
-    let percentages = await page.$$eval('.component_comment', exercises => exercises.map(exercises => exercises.textContent));
+let exercise_name = await page.$$eval('.component_name', names => names.map(name => name.textContent));
+//let percentages = await page.$$eval('.component_comment', exercises => exercises.map(exercises => exercises.textContent));
 
-    console.log('names' + exercise_name);
-    console.log('percentages' + percentages);
+var arrayPercentages = [];
+var i = 0;
+data.forEach(percentage_weight => 
+  {
+    arrayPercentages.push([exercise_name[i], percentage_weight.match(/[0-9]+%\s?/g, '')]);
+    i += 1;
+  });
 
-    await fs.writeFile('results.json', JSON.stringify(percentages, null, 2));
+
+console.table('arrayPercentages' + arrayPercentages);
+
+await fs.writeFile('results.json', JSON.stringify(arrayPercentages, null, 2));
 
 
 const cookies = await page.cookies();
