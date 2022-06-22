@@ -41,11 +41,11 @@
                                 %}
                             <tr>
                                
-                                <td>{{ task[0] }}   <input type="text" id='liftnumber[]'  name="liftnumber" onkeyup="getNumbers(event, '{{ task[0] }}', '{{ task[1] }}')">
+                                <td>{{ task[0] }}  <br/> <input style="width:50px" type="text" id='liftnumber[]'  name="liftnumber" onkeyup="getNumbers(event, '{{ task[0] }}', '{{ task[1] }}')">
                                 </td>
                                 <td>{{ task[1] }}</td>
 
-                                <td>  <label for="liftname" id="{{ task[0] }}"></label></td>
+                                <td style="width: 35%; text-align:right;">  <label style="color:green; font-weight:bold;" for="liftname" id="{{ task[0] }}"></label></td>
                                 
                             </tr>
                             {% endfor %}

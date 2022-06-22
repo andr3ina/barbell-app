@@ -16,13 +16,15 @@ const puppeteer = require('puppeteer');
 
 async function main() {
 
-  const browser = await puppeteer.launch({headless: false});
-  //const browser = await puppeteer.launch({args: ['--no-sandbox']});
-
+  const browser = await puppeteer.launch({headless: true});
   const page = await browser.newPage();
+  try{
   const cookiesString = await fs.readFile('cookies.json');
   const cookies2 = JSON.parse(cookiesString);
   await page.setCookie(...cookies2);
+}catch{
+  
+}
   await page.setViewport({width: 1200, height: 720});
   await page.goto('https://app.wodify.com/WOD/WOD.aspx', { waitUntil: 'networkidle0' }); // wait until page load
   
@@ -30,6 +32,7 @@ async function main() {
 
   if (ff.existsSync(path)) {
     // path exists
+    
     console.log("exists:", path);
   } else {
     
@@ -55,7 +58,7 @@ async function main() {
     page.evaluate( () => document.getElementById("AthleteTheme_wtLayoutNormal_block_wtSubNavigation_wttxtDate").value = ""),
     page.evaluate( () => document.getElementById("AthleteTheme_wtLayoutNormal_block_wtSubNavigation_W_Utils_UI_wt3_block_wtDateInputFrom").value = ""),
     page.type('#AthleteTheme_wtLayoutNormal_block_wtSubNavigation_wttxtDate', ''),
-    page.type('#AthleteTheme_wtLayoutNormal_block_wtSubNavigation_W_Utils_UI_wt3_block_wtDateInputFrom','06/20/2022'),
+    page.type('#AthleteTheme_wtLayoutNormal_block_wtSubNavigation_W_Utils_UI_wt3_block_wtDateInputFrom','06/22/2022'),
     page.keyboard.press('Enter'),
   ]);
 
@@ -98,6 +101,11 @@ await fs.writeFile('cookies.json', JSON.stringify(cookies, null, 2));
 }
 
 main();
+
+
+
+
+
 
 
 // Invoke the above function

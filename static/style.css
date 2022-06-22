@@ -70,6 +70,10 @@
     width: 30%;
   }
   
+#liftnumber{
+  width: 50px;
+}
+
   .credits{
     text-align: right;
     font-weight: bold;
@@ -537,8 +541,8 @@
       width: 100%;
     }
     .content form input[type="text"], .content form input[type="password"], .content form input[type="email"] {
-      width: 100%;
-      max-width: 100%;
+      width: 50px;
+      
     }
     .profile-detail strong {
       width: 100%;
