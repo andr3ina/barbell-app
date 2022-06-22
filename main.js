@@ -12,7 +12,12 @@ var result;
 const url = "https://app.wodify.com/WOD/WOD.aspx";
 
 const puppeteer = require('puppeteer');
-
+var date_ob = new Date();
+var day = ("0" + date_ob.getDate()).slice(-2);
+var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+var year = date_ob.getFullYear();
+ 
+var date = month + "/" + day + "/" + year;
 
 async function main() {
 
@@ -58,7 +63,7 @@ async function main() {
     page.evaluate( () => document.getElementById("AthleteTheme_wtLayoutNormal_block_wtSubNavigation_wttxtDate").value = ""),
     page.evaluate( () => document.getElementById("AthleteTheme_wtLayoutNormal_block_wtSubNavigation_W_Utils_UI_wt3_block_wtDateInputFrom").value = ""),
     page.type('#AthleteTheme_wtLayoutNormal_block_wtSubNavigation_wttxtDate', ''),
-    page.type('#AthleteTheme_wtLayoutNormal_block_wtSubNavigation_W_Utils_UI_wt3_block_wtDateInputFrom','06/22/2022'),
+    page.type('#AthleteTheme_wtLayoutNormal_block_wtSubNavigation_W_Utils_UI_wt3_block_wtDateInputFrom',date),
     page.keyboard.press('Enter'),
   ]);
 

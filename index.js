@@ -61,7 +61,7 @@ app.get('/', (request, response) => {
 	var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 	var year = date_ob.getFullYear();
    
-var date = year + "-" + month + "-" + day;
+	var date = month + "/" + day + "/" + year;
 
         let numbers = [];
 
