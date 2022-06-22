@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,minimum-scale=1">
-		<title>Login</title>
+		<title>Barbell App</title>
 		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 		<link rel="icon" href="/favico.png" type="image/png">
@@ -41,11 +41,11 @@
                                 %}
                             <tr>
                                
-                                <td>{{ task[0] }}   <input type="text" id="liftnumber" name="liftnumber" onkeypress="getNumbers(event, '{{ task[0] }}', '{{ task[1] }}')">
+                                <td>{{ task[0] }}   <input type="text" id='liftnumber[]'  name="liftnumber" onkeyup="getNumbers(event, '{{ task[0] }}', '{{ task[1] }}')">
                                 </td>
                                 <td>{{ task[1] }}</td>
 
-                                <td>  <label for="liftnumber" id="{{ task[0] }}"></label></td>
+                                <td>  <label for="liftname" id="{{ task[0] }}"></label></td>
                                 
                             </tr>
                             {% endfor %}
@@ -53,6 +53,8 @@
                     </table>
                 </div>
             </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 		<script src="script.js"></script>
 	
 	</body>

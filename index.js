@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 const cryptography = require('crypto');
 const fs = require('fs-extra');
 
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 const http = require('http');
 const https = require("https");
 
@@ -56,13 +56,19 @@ app.get('/', (request, response) => {
         let rawdata = fs.readFileSync('results.json');
         let tasks = JSON.parse(rawdata);
         console.log(tasks);
-        let ts = Date.now();
+        var date_ob = new Date();
+	var day = ("0" + date_ob.getDate()).slice(-2);
+	var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+	var year = date_ob.getFullYear();
+   
+var date = year + "-" + month + "-" + day;
+
         let numbers = [];
 
 		// Render profile page
-		response.render('index.html', { tasks: tasks, today : ts, numbers : numbers });
+		response.render('index.html', { tasks: tasks, today : date, numbers : numbers });
 	});
 
 
 
-http.createServer(app).listen(8080);
+http.createServer(app).listen(80);

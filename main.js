@@ -14,17 +14,11 @@ const url = "https://app.wodify.com/WOD/WOD.aspx";
 const puppeteer = require('puppeteer');
 
 
-var http = require('http');
-
-http.createServer(function (req, res) {
-  
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end('Hello World!' + result);
-}).listen(8080);
-
 async function main() {
 
   const browser = await puppeteer.launch({headless: false});
+  //const browser = await puppeteer.launch({args: ['--no-sandbox']});
+
   const page = await browser.newPage();
   const cookiesString = await fs.readFile('cookies.json');
   const cookies2 = JSON.parse(cookiesString);
@@ -106,52 +100,4 @@ await fs.writeFile('cookies.json', JSON.stringify(cookies, null, 2));
 main();
 
 
-
-// Async function which scrapes the data
-async function scrapeData(content) {
-  try {
-    // Fetch HTML of the page we want to scrape
-    const { data } = content;
-    // Load HTML we fetched in the previous line
-    console.log(data);
-    const $ = cheerio.load(content);
-    // Select all the list items in plainlist class
-    const listItems = $(".component_show_wrapper div");
-    // Stores data for all countries
-    const countries = [];
-    // Use .each method to loop through the li we selected
-    listItems.each((idx, el) => {
-      // Object holding data for each country/jurisdiction
-      const country = { name: "", iso3: "" };
-      // Select the text content of a and span elements
-      // Store the textcontent in the above object
-      country.name = $(el).children("component_name").text();
-      country.iso3 = $(el).children("component_comment").text();
-      // Populate countries array with country data
-      countries.push(country);
-    });
-    // Logs countries array to the console
-    console.dir(countries);
-    // Write countries array in countries.json file
-    fs.writeFile("coutries.json", JSON.stringify(countries, null, 2), (err) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      console.log("Successfully written data to file");
-    });
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-
-
-
-
-      app.get('/results', function (req, res) {
-        JSON.stringify(result);
-      console.log(JSON.stringify(result));
-      res.send(result);
-      })
 // Invoke the above function
